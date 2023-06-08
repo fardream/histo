@@ -9,7 +9,6 @@ void histo_n(std::index_sequence<N...>, const uint8_t *x, const float *v,
   constexpr const size_t gl = sizeof...(N);
 
   const size_t gc = n_r_2 / gl;
-  const size_t rmg = n_r_2 - gc * gl;
 
   for (size_t f = 0; f < n_f; f++) {
     const uint8_t *x_f = x + n_r_2 * f;
