@@ -69,17 +69,23 @@ pub fn dot8(x: &[f32], y: &[f32], n: usize) -> f32 {
     const GL: usize = 8;
     let gc = n / GL;
     let mut v = 0.;
+    let mut ss: [f32; 8] = [0.; 8];
     for i in 0..gc {
         let ii = i * 8;
-        v += x[ii + 0] * y[ii + 0];
-        v += x[ii + 1] * y[ii + 1];
-        v += x[ii + 2] * y[ii + 2];
-        v += x[ii + 3] * y[ii + 3];
-        v += x[ii + 4] * y[ii + 4];
-        v += x[ii + 5] * y[ii + 5];
-        v += x[ii + 6] * y[ii + 6];
-        v += x[ii + 7] * y[ii + 7];
+        ss[0] += x[ii + 0] * y[ii + 0];
+        ss[1] += x[ii + 1] * y[ii + 1];
+        ss[2] += x[ii + 2] * y[ii + 2];
+        ss[3] += x[ii + 3] * y[ii + 3];
+        ss[4] += x[ii + 4] * y[ii + 4];
+        ss[5] += x[ii + 5] * y[ii + 5];
+        ss[6] += x[ii + 6] * y[ii + 6];
+        ss[7] += x[ii + 7] * y[ii + 7];
     }
+
+    v += ss[0] + ss[1];
+    v += ss[2] + ss[3];
+    v += ss[4] + ss[5];
+    v += ss[6] + ss[7];
 
     for i in (gc * GL)..n {
         v += x[i] * y[i];
@@ -99,5 +105,8 @@ pub mod cimpl {
             nb: usize,
             out: *mut f32,
         );
+        pub fn dot(x: *const f32, y: *const f32, n: usize) -> f32;
+        pub fn dot8(x: *const f32, y: *const f32, n: usize) -> f32;
+        pub fn dott(x: *const f32, y: *const f32, n: usize) -> f32;
     }
 }

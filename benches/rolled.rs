@@ -28,6 +28,21 @@ fn histo_test(c: &mut Criterion) {
                 histo::dot8(&p.x, &p.y, n);
             });
         });
+        group.bench_with_input(BenchmarkId::new("c1", n), &v, |b, p| {
+            b.iter(|| unsafe {
+                histo::cimpl::dot(p.x.as_ptr(), p.y.as_ptr(), n);
+            });
+        });
+        group.bench_with_input(BenchmarkId::new("c8", n), &v, |b, p| {
+            b.iter(|| unsafe {
+                histo::cimpl::dot8(p.x.as_ptr(), p.y.as_ptr(), n);
+            });
+        });
+        group.bench_with_input(BenchmarkId::new("ct", n), &v, |b, p| {
+            b.iter(|| unsafe {
+                histo::cimpl::dott(p.x.as_ptr(), p.y.as_ptr(), n);
+            });
+        });
     }
 }
 

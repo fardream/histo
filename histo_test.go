@@ -42,3 +42,29 @@ func BenchmarkHisto8(b *testing.B) {
 		})
 	}
 }
+
+func makexy(n uint64) ([]float32, []float32) {
+	return make([]float32, n), make([]float32, n)
+}
+
+func BenchmarkDot(b *testing.B) {
+	for _, n := range []uint64{1_000_000, 10_000_000, 100_000_000} {
+		x, y := makexy(n)
+		b.Run(fmt.Sprintf("%d", n), func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				Dot(x, y, n)
+			}
+		})
+	}
+}
+
+func BenchmarkDot8(b *testing.B) {
+	for _, n := range []uint64{1_000_000, 10_000_000, 100_000_000} {
+		x, y := makexy(n)
+		b.Run(fmt.Sprintf("%d", n), func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				Dot8(x, y, n)
+			}
+		})
+	}
+}

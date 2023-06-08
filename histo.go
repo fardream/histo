@@ -16,6 +16,49 @@ func Histo(x []uint8, v []float32, n_f uint64, n_r uint64, nb uint64, out []floa
 
 const gl = 8
 
+func Dot(x []float32, y []float32, n uint64) float32 {
+	var v float32 = 0
+	for i := uint64(0); i < n; i++ {
+		v += x[i] * y[i]
+	}
+
+	return v
+}
+
+func Dot8(x []float32, y []float32, n uint64) float32 {
+	const gl = 8
+	gc := n / gl
+	var v float32 = 0
+	ss := [gl]float32{0, 0, 0, 0, 0, 0, 0, 0}
+
+	for i := uint64(0); i < gc; i++ {
+		ii := i * 8
+		ss[0] += x[ii+0] * y[ii+0]
+		ss[1] += x[ii+1] * y[ii+1]
+		ss[2] += x[ii+2] * y[ii+2]
+		ss[3] += x[ii+3] * y[ii+3]
+		ss[4] += x[ii+4] * y[ii+4]
+		ss[5] += x[ii+5] * y[ii+5]
+		ss[6] += x[ii+6] * y[ii+6]
+		ss[7] += x[ii+7] * y[ii+7]
+	}
+
+	v += ss[0]
+	v += ss[1]
+	v += ss[2]
+	v += ss[3]
+	v += ss[4]
+	v += ss[5]
+	v += ss[6]
+	v += ss[7]
+
+	for i := gc * gl; i < n; i++ {
+		v += x[i] + y[i]
+	}
+
+	return v
+}
+
 func Histo8(x []uint8, v []float32, n_f uint64, n_r uint64, nb uint64, out []float32) {
 	n_r_2 := n_r / 2
 	gc := n_r_2 / gl
