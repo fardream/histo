@@ -82,10 +82,14 @@ pub fn dot8(x: &[f32], y: &[f32], n: usize) -> f32 {
         ss[7] += x[ii + 7] * y[ii + 7];
     }
 
-    v += ss[0] + ss[1];
-    v += ss[2] + ss[3];
-    v += ss[4] + ss[5];
-    v += ss[6] + ss[7];
+    v += ss[0];
+    v += ss[1];
+    v += ss[2];
+    v += ss[3];
+    v += ss[4];
+    v += ss[5];
+    v += ss[6];
+    v += ss[7];
 
     for i in (gc * GL)..n {
         v += x[i] * y[i];
