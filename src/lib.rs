@@ -56,6 +56,38 @@ pub fn histo8(x: &[u8], v: &[f32], n_f: usize, n_r: usize, nb: usize, out: &mut 
     }
 }
 
+pub fn dot(x: &[f32], y: &[f32], n: usize) -> f32 {
+    let mut v = 0.;
+    for i in 0..n {
+        v += x[i] * y[i];
+    }
+
+    v
+}
+
+pub fn dot8(x: &[f32], y: &[f32], n: usize) -> f32 {
+    const GL: usize = 8;
+    let gc = n / GL;
+    let mut v = 0.;
+    for i in 0..gc {
+        let ii = i * 8;
+        v += x[ii + 0] * y[ii + 0];
+        v += x[ii + 1] * y[ii + 1];
+        v += x[ii + 2] * y[ii + 2];
+        v += x[ii + 3] * y[ii + 3];
+        v += x[ii + 4] * y[ii + 4];
+        v += x[ii + 5] * y[ii + 5];
+        v += x[ii + 6] * y[ii + 6];
+        v += x[ii + 7] * y[ii + 7];
+    }
+
+    for i in (gc * GL)..n {
+        v += x[i] * y[i];
+    }
+
+    v
+}
+
 pub mod cimpl {
     extern "C" {
         pub fn histo(x: *const u8, v: *const f32, n_f: usize, n_r: usize, nb: usize, out: *mut f32);

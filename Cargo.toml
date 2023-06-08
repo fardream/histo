@@ -18,3 +18,7 @@ pprof = { version = "0.11.0", features = ["criterion", "prost-codec", "flamegrap
 [[bench]]
 name = "c-vs-rs"
 harness = false
+
+[[bench]]
+name = "rolled"
+harness = false
