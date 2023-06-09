@@ -72,7 +72,7 @@ func BenchmarkDot8(b *testing.B) {
 
 func BenchmarkExp8(b *testing.B) {
 	for k := 0; k < b.N; k++ {
-		for i := -10; i < 10; i++ {
+		for i := -10.; i < 10.; i += 0.01 {
 			i := float32(i)
 			vals := []float32{
 				i + 0,
@@ -92,6 +92,7 @@ func BenchmarkExp8(b *testing.B) {
 			if float32(realout) != outs[0] {
 				b.Fatalf("failed to calc: %f vs %f", realout, outs[0])
 			}
+
 		}
 	}
 }
