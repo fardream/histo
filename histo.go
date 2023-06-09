@@ -1,5 +1,7 @@
 package histo
 
+import "math"
+
 func Histo(x []uint8, v []float32, n_f uint64, n_r uint64, nb uint64, out []float32) {
 	n_r_2 := n_r / 2
 
@@ -104,4 +106,15 @@ func Histo8(x []uint8, v []float32, n_f uint64, n_r uint64, nb uint64, out []flo
 			out_f[(x_f[i] >> 4)] += f_f[i*2+1]
 		}
 	}
+}
+
+func Exp8(vals []float32, out []float32) {
+	out[0] = float32(math.Exp(float64(vals[0])))
+	out[1] = float32(math.Exp(float64(vals[1])))
+	out[2] = float32(math.Exp(float64(vals[2])))
+	out[3] = float32(math.Exp(float64(vals[3])))
+	out[4] = float32(math.Exp(float64(vals[4])))
+	out[5] = float32(math.Exp(float64(vals[5])))
+	out[6] = float32(math.Exp(float64(vals[6])))
+	out[7] = float32(math.Exp(float64(vals[7])))
 }

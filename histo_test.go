@@ -2,6 +2,7 @@ package histo
 
 import (
 	"fmt"
+	"math"
 	"testing"
 )
 
@@ -66,5 +67,31 @@ func BenchmarkDot8(b *testing.B) {
 				Dot8(x, y, n)
 			}
 		})
+	}
+}
+
+func BenchmarkExp8(b *testing.B) {
+	for k := 0; k < b.N; k++ {
+		for i := -10; i < 10; i++ {
+			i := float32(i)
+			vals := []float32{
+				i + 0,
+				i + 1,
+				i + 2,
+				i + 3,
+				i + 4,
+				i + 5,
+				i + 6,
+				i + 7,
+			}
+			outs := make([]float32, 8)
+			Exp8(vals, outs)
+
+			realout := math.Exp(float64(i))
+
+			if float32(realout) != outs[0] {
+				b.Fatalf("failed to calc: %f vs %f", realout, outs[0])
+			}
+		}
 	}
 }
