@@ -4,21 +4,9 @@
 #include <cstdio>
 #include <vector>
 
-thread_local std::vector<float> vs;
-
-constexpr const int N = 1000000000;
-
 void doexp(const float *vals, float *outs) {
   for (int i = 0; i < 8; i++) {
-    outs[i] = expf(vals[i]);
-  }
-}
-
-static void DoSetup(const benchmark::State &state) {
-  vs.resize(N, 0);
-  for (int i = 0; i < N; i++) {
-    vs[i] = -(float)(i);
-    vs[i] = vs[i] < 0 ? -vs[i] : vs[i];
+    outs[i] = __builtin_expf(vals[i]);
   }
 }
 
@@ -37,6 +25,6 @@ static void BM_expf(benchmark::State &state) {
 }
 
 // Register the function as a benchmark
-BENCHMARK(BM_expf)->Setup(DoSetup);
+BENCHMARK(BM_expf);
 // Run the benchmark
 BENCHMARK_MAIN();
