@@ -11,12 +11,12 @@ void doexp(const float *vals, float *outs) {
 }
 
 static void BM_expf(benchmark::State &state) {
-  std::vector<float> out(8);
+  float out[8] = {};
   for (auto _ : state) {
     for (float num = -10; num < 10; num += 0.01) {
-      std::vector<float> x{num,     num + 1, num + 2, num + 3,
-                           num + 4, num + 5, num + 6, num + 7};
-      doexp(x.data(), out.data());
+      float x[8] = {num,     num + 1, num + 2, num + 3,
+                    num + 4, num + 5, num + 6, num + 7};
+      doexp(x, out);
       if (out[0] != expf(num)) {
         state.SkipWithError("Failed to read data!");
       }
