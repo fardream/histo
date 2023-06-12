@@ -1,0 +1,5 @@
+cc_binary(
+    name = "expf",
+    srcs = ["expf.cc"],
+    deps = ["@com_github_google_benchmark//:benchmark"],
+)
