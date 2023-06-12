@@ -25,7 +25,6 @@ static void DoSetup(const benchmark::State &state) {
 static void BM_expf(benchmark::State &state) {
   std::vector<float> out(8);
   for (auto _ : state) {
-    float num = -10;
     for (float num = -10; num < 10; num += 0.01) {
       std::vector<float> x{num,     num + 1, num + 2, num + 3,
                            num + 4, num + 5, num + 6, num + 7};
