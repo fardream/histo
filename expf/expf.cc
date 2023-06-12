@@ -4,10 +4,15 @@
 #include <cstdio>
 #include <vector>
 
-void doexp(const float *vals, float *outs) {
-  for (int i = 0; i < 8; i++) {
-    outs[i] = __builtin_expf(vals[i]);
-  }
+void doexp(const float vals[8], float outs[8]) {
+  outs[0] = __builtin_expf(vals[0]);
+  outs[1] = __builtin_expf(vals[1]);
+  outs[2] = __builtin_expf(vals[2]);
+  outs[3] = __builtin_expf(vals[3]);
+  outs[4] = __builtin_expf(vals[4]);
+  outs[5] = __builtin_expf(vals[5]);
+  outs[6] = __builtin_expf(vals[6]);
+  outs[7] = __builtin_expf(vals[7]);
 }
 
 static void BM_expf(benchmark::State &state) {
