@@ -21,3 +21,5 @@ Cargo.lock
 
 # bazel
 /bazel-*
+
+.clangd
